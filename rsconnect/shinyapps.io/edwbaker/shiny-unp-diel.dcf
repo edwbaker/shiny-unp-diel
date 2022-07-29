@@ -1,0 +1,13 @@
+name: shiny-unp-diel
+title: shiny-unp-diel
+username:
+account: edwbaker
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6636681
+bundleId: 6095025
+url: https://edwbaker.shinyapps.io/shiny-unp-diel/
+when: 1657723148.68762
+lastSyncTime: 1657723148.68764
+asMultiple: FALSE
+asStatic: FALSE
