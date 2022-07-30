@@ -3,6 +3,7 @@ library(unpdata)
 library(suncalc)
 library(plotrix)
 library(sonicscrewdriver)
+library(schite)
 
 
 sites <- sites()
@@ -64,13 +65,50 @@ ui <- fluidPage(
 
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("distPlot")
+      plotOutput("distPlot"),
+      tabsetPanel(type = "tabs",
+                  tabPanel("How to cite", htmlOutput("citation")),
+                  tabPanel("Data Calculation", htmlOutput("citecalc")),
+                  tabPanel("Data Visualisation", htmlOutput("citevis")),
+                  tabPanel("Misc", htmlOutput("citmisc"))
+      )
     )
   )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  citation <- list(
+    cite_bibentry(
+      bibentry(
+        bibtype="Misc",
+        title="Daylight Information Example for Urban Nature Project sites",
+        author="Ed Baker",
+        url="http://shiny.ebaker.me.uk/shiny-unp-diel/",
+        year=2022
+      )
+    )
+  )
+  output$citation <- citationTabUI(citation)
+
+  citcalc <- list(
+    cite_r_package("suncalc"),
+    cite_r_package("unpdata")
+  )
+  output$citecalc <- citationTabUI(citcalc)
+
+  citvis <- list(
+    cite_r_package("sonicscrewdriver"),
+    cite_r_package("plotrix")
+  )
+  output$citevis <- citationTabUI(citvis)
+
+  citmisc <- list(
+    cite_r_package("schite"),
+    cite_r_package("shiny")
+  )
+  output$citmisc <- citationTabUI(citmisc)
+
   output$distPlot <- renderPlot({
     lat <- as.numeric(sites[sites$names==input$loc,]$lat)
     lon <- as.numeric(sites[sites$names==input$loc,]$lon)
